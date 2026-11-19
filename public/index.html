@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloodReady - Situational Flood Assessment</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">🌊</div>
+        <div>
+          <h1>FloodReady</h1>
+          <p class="tagline">Situational Flood Assessment Assistant</p>
+        </div>
+      </div>
+      <div class="status-container">
+        <div id="keyStatusBadge" class="status-badge checking">
+          <span class="status-dot"></span>
+          <span id="keyStatusText">Checking server status...</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Emergency Safety Warning Banner -->
+    <div class="emergency-banner" role="alert">
+      <div class="banner-icon">⚠️</div>
+      <div class="banner-content">
+        <strong>IMPORTANT EMERGENCY NOTICE:</strong>
+        <p>If you or someone else is in immediate life-threatening danger, contact your official local emergency services immediately. <strong>AI suggestions are unverified suggestions</strong> to aid thinking and planning—never treat them as official rescue dispatch, medical guidance, or verified facts.</p>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="main-layout">
+      <!-- Input Card -->
+      <section class="card input-card">
+        <div class="card-header">
+          <h2>Describe the Flood Situation</h2>
+          <p class="card-subtitle">Share what you observe (location, water levels, people involved, power, hazards).</p>
+        </div>
+
+        <!-- Quick Example Prompts -->
+        <div class="preset-container">
+          <span class="preset-label">Quick samples:</span>
+          <button type="button" class="preset-chip" data-sample="residential">Ground Floor Flooding</button>
+          <button type="button" class="preset-chip" data-sample="vehicle">Stranded in Vehicle</button>
+          <button type="button" class="preset-chip" data-sample="neighborhood">Rising River Alert</button>
+        </div>
+
+        <form id="assessmentForm">
+          <div class="form-group">
+            <textarea
+              id="situationInput"
+              rows="6"
+              placeholder="Describe the situation in as much detail as you know...
+
+Example: Water has entered the ground floor and is about 2 feet deep, rising slowly. Power just cut out. Two adults and an infant are on the second floor. We have drinking water for 24 hours but no landline phone."
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="analyzeBtn" class="btn btn-primary">
+              <span class="btn-text">Analyze Situation with Gemini</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+            <button type="button" id="clearBtn" class="btn btn-secondary">Clear</button>
+          </div>
+        </form>
+
+        <div id="serverNotice" class="notice-box hidden"></div>
+      </section>
+
+      <!-- Results Card (Initial state hidden) -->
+      <section id="resultsCard" class="card results-card hidden" aria-live="polite">
+        <div class="card-header results-header">
+          <div>
+            <h2>Situational Assessment</h2>
+            <div class="meta-tag">AI-Generated Analysis &bull; Not Verified</div>
+          </div>
+          <button type="button" id="copyBtn" class="btn btn-small">Copy Assessment</button>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="result-block">
+          <div class="result-block-header">
+            <span class="block-icon">📝</span>
+            <h3>Plain-Language Summary</h3>
+          </div>
+          <p id="summaryText" class="result-text"></p>
+        </div>
+
+        <!-- Missing Details Section -->
+        <div class="result-block">
+          <div class="result-block-header">
+            <span class="block-icon">❓</span>
+            <h3>Critical Missing Details</h3>
+          </div>
+          <p class="block-hint">Responders and emergency services frequently need these details to locate and help you:</p>
+          <ul id="missingDetailsList" class="details-list"></ul>
+        </div>
+
+        <!-- Suggested Next Steps Section -->
+        <div class="result-block">
+          <div class="result-block-header">
+            <span class="block-icon">📋</span>
+            <h3>Suggested Next Steps</h3>
+          </div>
+          <div class="disclaimer-chip">
+            <span>ℹ️ These are AI-suggested safety actions, not official instructions. Adapt to your actual physical surroundings.</span>
+          </div>
+          <ol id="suggestedStepsList" class="steps-list"></ol>
+        </div>
+
+        <!-- Safety Assurance / Reminder -->
+        <div class="official-reminder">
+          <strong>Official Emergency Reminder:</strong> Always follow direct guidance from official local emergency management authorities and standard official channels.
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="security-info">
+        <span class="shield-icon">🛡️</span>
+        <span><strong>Privacy Notice:</strong> Your <code>GEMINI_API_KEY</code> stays private on your local computer in <code>.env.local</code> and is never exposed in browser code or uploaded to GitHub.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

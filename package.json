@@ -1,0 +1,16 @@
+{
+  "name": "floodready",
+  "version": "1.0.0",
+  "description": "FloodReady - Situational Flood Assessment Assistant powered by Gemini",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "flood-ready",
+    "emergency-preparedness",
+    "gemini-api"
+  ],
+  "author": "",
+  "license": "MIT"
+}
